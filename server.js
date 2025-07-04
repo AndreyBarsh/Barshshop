@@ -61,7 +61,7 @@ app.post('/api/cdek-calculate', async (req, res) => {
       body: JSON.stringify(req.body),
     });
 
-    const data = await cdekResp.text(); // <- сначала как текст
+    const data = await cdekResp.text(); 
     console.log('Ответ от CDEK:', data);
 
     try {

@@ -52,6 +52,20 @@ const CheckoutModal = ({ isOpen, onClose }: CheckoutModalProps) => {
   }
 };
 
+  const now2 = new Date();
+  const timezoneOffset = -now2.getTimezoneOffset();
+
+  const tzHours = Math.floor(Math.abs(timezoneOffset) / 60)
+    .toString()
+    .padStart(2, '0');
+  const tzMinutes = (Math.abs(timezoneOffset) % 60)
+    .toString()
+    .padStart(2, '0');
+  const sign = timezoneOffset >= 0 ? '+' : '-';
+
+  const formattedDate2 = now2.toISOString().split('.')[0] + `${sign}${tzHours}${tzMinutes}`;
+
+
   const calculateCdekDelivery = async (address: string, city: string, postalCode: string): Promise<DeliveryResponse> => {
   try {
     const accessToken = await fetchCdekToken();
@@ -64,8 +78,8 @@ const CheckoutModal = ({ isOpen, onClose }: CheckoutModalProps) => {
     }
 
     const requestBody = {
-      date: '2025-07-02T22:04:17+0300',
-      type: 1,
+      date: formattedDate2,
+      type: 2,
       currency: 1,
       from_location: {
         postal_code: '195426',
